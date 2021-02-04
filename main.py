@@ -52,7 +52,7 @@ def remove_walls(a: Cell, b: Cell) -> None:
 
 def create_folder(directory: str) -> None:
     """
-    creates folder
+    creates export folder
     """
     try:
         if not os.path.exists(directory):
