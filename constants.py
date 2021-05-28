@@ -1,6 +1,6 @@
 WIDTH = 800
 HEIGHT = 600
-N = 300
+N = 3000
 
 # !do not change
 BG = (51, 51, 51)
