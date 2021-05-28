@@ -127,7 +127,7 @@ def display_path() -> None:
         x1, y1 = path[i]
         x2, y2 = path[i + 1]
         pygame.draw.line(window, HG, (y1 * W / 2, x1 * W / 2), (y2 * W / 2, x2 * W / 2))
-        pygame.display.flip()
+        # pygame.display.flip()
 
 
 def setup() -> None:
@@ -164,44 +164,45 @@ def draw() -> None:
     """
     global current, done, total, remain
 
-    if not current.visited:
-        remain -= 1
+    for _ in range(1_000):  # fast gen
+        if not current.visited:
+            remain -= 1
 
-    if not done:
-        current.visited = True
-        current.show()
-
-    next = None
-    if not done:
-        next = current.check_neighbors(grid)
-
-    if next is not None:
-        stack.append(current)
-        remove_walls(current, next)
-        current = next
-        current.highlight()
-
-    elif len(stack) > 0:
-        current = stack.pop()
-        current.highlight()
-
-    else:
         if not done:
+            current.visited = True
+            current.show()
+
+        next = None
+        if not done:
+            next = current.check_neighbors(grid)
+
+        if next is not None:
+            stack.append(current)
+            remove_walls(current, next)
+            current = next
             current.highlight()
-            state = f"done generating in {duration()}"
-            pygame.draw.rect(window, BG, ((MIN + 1, 80), (MAX - MIN, 50)))
-            state_label = FONT.render(state, True, (255, 255, 255))
-            window.blit(state_label, (SEP, 100))
-            pygame.display.flip()
-            pygame.display.set_caption(f"Maze Generator [{ROWS}x{COLS}] | done")
-            done = True
-            state = "processing... please wait"
-            pygame.draw.rect(window, BG, ((MIN + 1, 110), (MAX - MIN, 50)))
-            state_label = FONT.render(state, True, (255, 255, 255))
-            window.blit(state_label, (SEP, 110))
-            pygame.display.flip()
-            export()
-            display_path()
+
+        elif len(stack) > 0:
+            current = stack.pop()
+            current.highlight()
+
+        else:
+            if not done:
+                done = True
+                current.highlight()
+                state = f"done generating in {duration()}"
+                pygame.draw.rect(window, BG, ((MIN + 1, 80), (MAX - MIN, 50)))
+                state_label = FONT.render(state, True, (255, 255, 255))
+                window.blit(state_label, (SEP, 100))
+                pygame.display.flip()
+                pygame.display.set_caption(f"Maze Generator [{ROWS}x{COLS}] | done")
+                state = "processing... please wait"
+                pygame.draw.rect(window, BG, ((MIN + 1, 110), (MAX - MIN, 50)))
+                state_label = FONT.render(state, True, (255, 255, 255))
+                window.blit(state_label, (SEP, 110))
+                pygame.display.flip()
+                export()
+                display_path()
 
     pygame.draw.rect(window, BG, ((MIN + 1, 0), (MAX - MIN, 80)))
     fps_label = FONT.render(f"fps : {round(clock.get_fps())}", True, (255, 255, 255))
