@@ -19,4 +19,4 @@ Some effective solving algorithm would be the A* algorithm. But because of the r
 
 ## efficiency
 
-This generating-solving maze was typically tested with 300 by 300 mazes. Although it can handle larger ones, it is highly likely that they won't be displayed properly. Time generation for this size of maze is around 2 minutes, exporting to text file (can be found inside the export folder) is less than a second and solving takes a couple of seconds. Time generation could be much lower if only pygame would allow us to have more than 1250 frames. To test it, simply tweak somes constants in [constants.py](constants.py) and run [main.py](main.py).
+This generating-solving maze was typically tested with 300 by 300 mazes. Although it can handle larger ones, it is highly likely that they won't be displayed properly. Time generation for this size of maze is around 2 seconds (acceleration by making more than one step each time through draw), exporting to text file (can be found inside the export folder) is less than a second and solving takes a couple of seconds. To test it, simply tweak somes constants in [constants.py](constants.py) and run [main.py](main.py).
